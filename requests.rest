@@ -12,3 +12,32 @@ Content-Type: application/json
 ###
 
 get http://localhost:3000/alksdj
+
+###
+
+POST http://localhost:3000/user
+Content-Type: application/json
+
+{
+    "name": "davita",
+    "password": "password"
+}
+
+###
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGY1Y2QwOTA4NjAwOTQyYThmYzMxNDEiLCJpYXQiOjE2MjY3MjE1NDV9.kIniYrvitmNGBrOwWkA283QKaRdQDqzxVOzWTIv7KDI
+
+{
+    "name": "davit",
+    "password": "password"
+}
+
+###
+POST http://localhost:3000/url/
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGY1ZTk0NWYyNTg5ZDNhNWM3NjNjM2EiLCJpc0F1dGhlbnRpY2F0ZWQiOmZhbHNlLCJpYXQiOjE2MjY3Mjg3NzN9._JK_miWk0SylAsx3v-n5_y7fWbSNxUEXDLQugmUGglQ
+
+{
+    "url": "dzalian.grdzelie/misamarti"
+}

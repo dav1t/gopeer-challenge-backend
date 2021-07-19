@@ -1,6 +1,6 @@
 const { User, validate } = require("../models/user.model");
 
-module.exports = class UserController {
+class UserController {
     async getUser(id) {
         return User.find(id).select('-password');
     }
@@ -9,8 +9,8 @@ module.exports = class UserController {
         const { error } = validate(user);
         if (error) throw new Error(error.details[0].message);
       
-        let user = await User.findOne({ name: user.name });
-        if (user) throw new Error("User already registered.");
+        let existingUser = await User.findOne({ name: user.name });
+        if (existingUser) throw new Error("User already registered.");
       
         user = new User({
           name: user.name,
@@ -21,3 +21,5 @@ module.exports = class UserController {
         return user;
     }
 }
+
+module.exports = UserController;

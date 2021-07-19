@@ -1,7 +1,8 @@
-const config = require('config');
 const jwt = require('jsonwebtoken');
 const Joi = require('joi');
+const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
+var SALT_WORK_FACTOR = 10;
 
 const UserSchema = new mongoose.Schema({
   name: {
@@ -17,7 +18,7 @@ const UserSchema = new mongoose.Schema({
     minlength: 3,
     maxlength: 255
   }
-});
+}, {timestamps: true});
 
 UserSchema.pre('save', function(next) {
     var user = this;
@@ -40,27 +41,24 @@ UserSchema.pre('save', function(next) {
 });
      
 UserSchema.methods.comparePassword = function(candidatePassword, cb) {
-    bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
-        if (err) return cb(err);
-        cb(null, isMatch);
-    });
+    return bcrypt.compareSync(candidatePassword, this.password);
 };
 
 //Generates authToken 
 UserSchema.methods.generateAuthToken = function() { 
-  const token = jwt.sign({ _id: this._id }, config.get('myprivatekey')); //get the private key from the config file -> environment variable
+  const token = jwt.sign({ _id: this._id, isAuthenticated: true }, process.env.ACCESS_SECRET_TOKEN);
   return token;
 }
 
 const User = mongoose.model('User', UserSchema);
 
 function validateUser(user) {
-  const schema = {
+  const schema = Joi.object({
     name: Joi.string().min(3).max(50).required(),
     password: Joi.string().min(3).max(255).required()
-  };
+  });
 
-  return Joi.validate(user, schema);
+  return schema.validate(user);
 }
 
 exports.User = User; 

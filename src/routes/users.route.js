@@ -1,12 +1,10 @@
-const auth = require("../middleware/auth");
-const bcrypt = require("bcrypt");
 const express = require("express");
 const router = express.Router();
 const UserController = require('../controller/user.controller')
 
 const userController = new UserController();
 
-router.get("/current", auth, async (req, res, next) => {
+router.get("/current", async (req, res, next) => {
     try {
         const user = await userController.getUser(req.body.id);
 
@@ -23,8 +21,7 @@ router.post("/", async (req, res, next) => {
         
         res.header("x-auth-token", token).send({
             _id: user._id,
-            name: user.name,
-            email: user.email
+            name: user.name
         });
     } catch (e) {
         next(e);
