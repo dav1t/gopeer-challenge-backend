@@ -26,7 +26,6 @@ Content-Type: application/json
 ###
 POST http://localhost:3000/auth/login
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGY1Y2QwOTA4NjAwOTQyYThmYzMxNDEiLCJpYXQiOjE2MjY3MjE1NDV9.kIniYrvitmNGBrOwWkA283QKaRdQDqzxVOzWTIv7KDI
 
 {
     "name": "davit",
@@ -39,5 +38,5 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGY1Y2QwOTA4NjAwOTQyYThmYzMxNDEiLCJpc0F1dGhlbnRpY2F0ZWQiOnRydWUsImlhdCI6MTYyNjczMzQ1NX0.gRmZBINY5eVufX82zb-08RkGdXhKbwoxGJcXsZA046Q
 
 {
-    "url": "dzalian.grdzelie/misamarti"
+    "url": "https://github.com/"
 }

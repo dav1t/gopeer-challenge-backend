@@ -4,16 +4,6 @@ const UserController = require('../controller/user.controller')
 
 const userController = new UserController();
 
-router.get("/current", async (req, res, next) => {
-    try {
-        const user = await userController.getUser(req.body.id);
-
-        res.send(user);
-    } catch (e) {
-        next(e);
-    }
-});
-
 router.post("/", async (req, res, next) => {
     try {
         const user = await userController.registerUser(req.body);

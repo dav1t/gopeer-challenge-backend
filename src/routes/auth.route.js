@@ -9,10 +9,13 @@ router.post("/login", async (req, res, next) => {
         const user = req.body;
         const token = await authController.authUser(user);
         
-        res.header("x-auth-token", token).send({
+        console.log(token);
+
+        res.set("Access-Control-Expose-Headers", "x-auth-token");
+        res.set("x-auth-token", token).send({
             _id: user._id,
             name: user.name,
-        });
+        })
     } catch (e) {
         next(e);
     }

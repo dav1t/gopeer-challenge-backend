@@ -8,6 +8,7 @@ router.post("/", async (req, res, next) => {
     try {
         const url = req.body.url;
         const user = req.user;
+        console.log(url);
 
         const result = await urlController.shortenUrl(url, user._id);
         res.send(result);

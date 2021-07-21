@@ -5,6 +5,7 @@ const app = express();
 const jwt = require('jsonwebtoken');
 const { authenticateToken } = require('./middleware/auth');
 const UrlController = require('./controller/url.controller');
+const cors = require('cors')
 
 mongoose.connect("mongodb://localhost:27017/testdb", {
   useNewUrlParser: "true",
@@ -16,12 +17,15 @@ mongoose.connection.on("error", err => {
 const authRouter = require('./routes/auth.route');
 const userRouter = require('./routes/users.route');
 const urlRouter = require('./routes/url.router');
+const analyticsRouter = require('./routes/analytics.route');
 
 app.use(express.json());
+app.use(cors())
 
 app.use('/auth', authRouter);
 app.use('/user', userRouter);
 app.use('/url', authenticateToken, urlRouter);
+app.use('/analytics', authenticateToken, analyticsRouter)
 
 const urlController = new UrlController();
 app.get('/:shortenedUrl', async (req, res, next) => {
@@ -30,6 +34,7 @@ app.get('/:shortenedUrl', async (req, res, next) => {
   if (token == null) {
     const id = mongoose.Types.ObjectId();
     token = jwt.sign({ _id: id, isAuthenticated: false }, process.env.ACCESS_SECRET_TOKEN);
+    res.set("Access-Control-Expose-Headers", "x-auth-token");
     res.header("x-auth-token", token);
   }
 
